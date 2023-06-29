@@ -1,0 +1,38 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "My first blog",
+  "main": "main.js",
+  "scripts": {
+    "start": "nodemon --inspect ./main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hoai-Baoo/first_blog.git"
+  },
+  "keywords": [
+    "engineer",
+    "aftifical",
+    "intelligence",
+    "computer",
+    "vision",
+    "algorithms",
+    "data",
+    "structures",
+    "backend",
+    "full",
+    "stack",
+    "devops"
+  ],
+  "author": "hoaibao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hoai-Baoo/first_blog/issues"
+  },
+  "homepage": "https://github.com/Hoai-Baoo/first_blog#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^2.0.22"
+  }
+}
