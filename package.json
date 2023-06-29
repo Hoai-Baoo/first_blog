@@ -2,9 +2,9 @@
   "name": "nodejs",
   "version": "1.0.0",
   "description": "My first blog",
-  "main": "main.js",
+  "main": "src/main.js",
   "scripts": {
-    "start": "nodemon --inspect ./main.js",
+    "start": "nodemon --inspect ./src/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -33,6 +33,10 @@
   "homepage": "https://github.com/Hoai-Baoo/first_blog#readme",
   "dependencies": {
     "express": "^4.18.2",
+    "express-handlebars": "^7.0.7",
     "nodemon": "^2.0.22"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0"
   }
 }
