@@ -5,6 +5,7 @@
   "main": "src/main.js",
   "scripts": {
     "start": "nodemon --inspect ./src/main.js",
+    "watch": "node-sass -w src/resources/scss/ -o src/public/css/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -37,6 +38,7 @@
     "nodemon": "^2.0.22"
   },
   "devDependencies": {
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "node-sass": "^9.0.0"
   }
 }
