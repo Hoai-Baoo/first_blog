@@ -4,6 +4,7 @@
   "description": "My first blog",
   "main": "src/main.js",
   "scripts": {
+    "beautiful": "lint-staged",
     "start": "nodemon --inspect ./src/main.js",
     "watch": "node-sass -w src/resources/scss/ -o src/public/css/",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -32,13 +33,24 @@
     "url": "https://github.com/Hoai-Baoo/first_blog/issues"
   },
   "homepage": "https://github.com/Hoai-Baoo/first_blog#readme",
+  "lint-staged": {
+    "src/**/*.{js,json,scss}": "prettier --tab-width 4 --write --single-quote --trailing-comma all"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm lint-staged"
+    }
+  },
   "dependencies": {
     "express": "^4.18.2",
     "express-handlebars": "^7.0.7",
     "nodemon": "^2.0.22"
   },
   "devDependencies": {
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.3",
     "morgan": "^1.10.0",
-    "node-sass": "^9.0.0"
+    "node-sass": "^9.0.0",
+    "prettier": "^3.0.0"
   }
 }
