@@ -1,6 +1,6 @@
 # first_blog
 
-# Introcduction
+# Introduction
 - MVC (Model-View-Controller)
 - CRUD (Create-Read-Update-Delete) with MongoDB
 - Soft Delete
