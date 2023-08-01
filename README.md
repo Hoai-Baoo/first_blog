@@ -1,5 +1,10 @@
 # first_blog
 
+# Introcduction
+- MVC (Model-View-Controller)
+- CRUD (Create-Read-Update-Delete) with MongoDB
+- Soft Delete
+
 # Use
 npm start
 
