@@ -1,4 +1,4 @@
-class SiteController {
+class NewsController {
     //[GET] /
     index(req, res) {
         res.render('news');
@@ -10,4 +10,4 @@ class SiteController {
     }
 }
 
-module.exports = new SiteController();
+module.exports = new NewsController();

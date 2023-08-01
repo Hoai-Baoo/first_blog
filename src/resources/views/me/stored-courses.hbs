@@ -1,0 +1,163 @@
+<script src="https://kit.fontawesome.com/daf03fc57d.js" crossorigin="anonymous"></script>
+
+<form class="mt-4" name="container-form" method="POST" action="/courses/handle-form-actions">
+    <div>
+      <h3>Khoá học của tôi [{{documentCount}}]</h3>
+      <a href="/me/trash/courses">Thùng rác [{{sub allDocumentCount documentCount}}]</a>
+      <div class="mt-4 d-flex align-items-center">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="checkbox-all">
+          <label class="form-check-label" for="checkbox-all">
+            Chọn tất cả
+          </label>
+        </div>
+
+        <select class="form-control form-control-sm checkbox-select-all-options" name="action" required>
+          <option value="">-- Chọn hành động --</option>
+          <option value="delete">Xoá</option>
+          {{!-- <option>3</option>
+          <option>4</option>
+          <option>5</option> --}}
+        </select>
+
+        <button class="btn btn-primary btn-sm btn-check-all-submit" disabled="disabled">Thực hiện</button>
+      </div>
+    </div>
+
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th scope="col" colspan="2">#</th>
+                <th scope="col">
+                  Tên khoá học
+                  <a href="">
+                    <span class="oi oi-elevator"></span>
+                    <span class="fa-solid fa-user"></span>
+                  </a>
+                  </th>
+                <th scope="col">Trình độ</th>
+                <th scope="col">Thời gian tạo</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each courses}}
+            <tr>
+                <td>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="courseIds[]" value="{{this._id}}">
+
+                    </label>
+                  </div>
+                </td>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.level}}</td>
+                <td>{{this.createdAt}}</td>
+                <td>
+                    <a href="/courses/{{this._id}}/edit" class="btn btn-link">Sửa</a>
+                    <a href="" class="btn btn-link" data-id="{{this._id}}" data-toggle="modal" data-target="#delete-course-modal">Xoá</a>
+                </td>
+            </tr>
+            {{else}}
+            <tr>
+                <td colspan="5" class="text-center">
+                  Bạn chưa thêm khoá học nào.
+                  <a href="/courses/create">Đăng khoá học</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</form>
+
+
+<!-- Confirm delete course -->
+<div id="delete-course-modal" class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Xoá khoá học?</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn đã chắc chắn muốn xoá khoá học này ?</p>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-delete-course" type="button" class="btn btn-danger">Xoá bỏ</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{!-- Delte hidden form --}}
+<form name="delete-course-form" method="POST" ></form>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var courseID;
+        var deleteForm = document.forms['delete-course-form'];
+        //var containerForm = document.forms['container-form']
+        var containerForm = $('form[name="container-form"]');
+        var btnDeleteCourse = document.getElementById('btn-delete-course');
+        var checkboxAll = $('#checkbox-all');
+        var courseItemCheckbox = $('input[name="courseIds[]"]');
+        var checkAllSubmitBtn = $('.btn-check-all-submit');
+        console.log(containerForm)
+        //When dialog confirm show clicked
+        $('#delete-course-modal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            courseID = button.data('id') //Extract info from data-* attributes
+        });
+        
+        btnDeleteCourse.onclick = function() {
+            deleteForm.action = '/courses/' + courseID + '?_method=DELETE';
+            deleteForm.submit();
+        }
+
+        //Check all change        
+        checkboxAll.change(function () {
+          var isCheckedAll = $(this).prop('checked');
+          courseItemCheckbox.prop('checked',isCheckedAll);
+          renderCheckAllSubmitBtn();
+        });
+
+        //Course item checkbox clicked
+        courseItemCheckbox.change(function () {
+          var isCheckedAll = courseItemCheckbox.length === $('input[name="courseIds[]"]:checked').length;
+          checkboxAll.prop('checked', isCheckedAll);
+          renderCheckAllSubmitBtn();
+        })
+
+        // Check all submit button clicked
+        //checkAllSubmitBtn.click(function (e) {
+        //  e.preventDefault();
+
+        //  var isSubmitable = !$(this).hasClass('disabled');
+        //    if (isSubmitable) {
+        //      containerForm.submit();
+        //    }
+        //});
+
+        //Check all submit button clicked
+        //containerForm.on('submit', function(e) {
+        //  var isSubmitable = !checkAllSubmitBtn.hasClass('disabled');
+        //  if (!isSubmitable) {
+        //    e.preventDefault();
+        //  }
+        //})
+
+        // Re-render check all submit button
+        function renderCheckAllSubmitBtn() {
+          var checkedCount = $('input[name="courseIds[]"]:checked').length;
+          if (checkedCount) {
+            checkAllSubmitBtn.removeAttr('disabled');
+          } else {
+            checkAllSubmitBtn.addAttr('disabled');
+          }
+
+        }
+    });
+</script>
