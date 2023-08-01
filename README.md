@@ -1,4 +1,3 @@
-![image](https://github.com/Hoai-Baoo/first_blog/assets/93426264/e016f70b-e5b5-4f8a-81ff-4354afbfecb6)# first_blog
 
 # Introduction
 - MVC (Model-View-Controller)
